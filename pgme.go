@@ -10,7 +10,6 @@ import (
     "log"
     "os"
     "os/exec"
-    "strings"
 	"syscall"
 	"os/signal"
 	"path"
@@ -53,9 +52,9 @@ func healthz(w http.ResponseWriter, _ *http.Request) {
 // utilization.memory, memory.total, memory.free, memory.used
 func home(w http.ResponseWriter, r *http.Request) {
 
-	metricList := []string {
-		"temperature.gpu", "utilization.gpu",
-		"utilization.memory", "memory.total", "memory.free", "memory.used"}
+  metricList := []string {
+      "gpu_temperature", "gpu_utilization", "gpu_utilization_memory",
+      "gpu_memory_total", "gpu_memory_free", "gpu_memory_used"}
 
 	verInfo := make(map[string]string)
 	verInfo["Buildtime"] = BuildTime
@@ -105,8 +104,8 @@ func metrics(response http.ResponseWriter, request *http.Request) {
     }
 
     metricList := []string {
-        "temperature.gpu", "utilization.gpu",
-        "utilization.memory", "memory.total", "memory.free", "memory.used"}
+        "gpu_temperature", "gpu_utilization", "gpu_utilization_memory",
+        "gpu_memory_total", "gpu_memory_free", "gpu_memory_used"}
 
     result := ""
     for _, row := range records {
@@ -116,7 +115,7 @@ func metrics(response http.ResponseWriter, request *http.Request) {
         }
     }
 
-    fmt.Fprintf(response, strings.Replace(result, ".", "_", -1))
+    fmt.Fprintf(response, result)
 }
 
 
