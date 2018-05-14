@@ -5,9 +5,11 @@
 updateStrategy: RollingUpdate
 
 image:
-  name: chhibber/pgme
+  name: anibali/pgme
   tag: latest
   pullPolicy: Always
+
+port: 9101
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
